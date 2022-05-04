@@ -7,6 +7,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    엔티티에는 Setter를 사용하지 말자.
+    변경 포인트가 많아서 유지보수가 어렵다.
+ */
 @Entity
 @Getter @Setter
 public class Member {

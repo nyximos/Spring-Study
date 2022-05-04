@@ -20,6 +20,12 @@ public class Category {
 
     private String name;
 
+    /*
+        @ManyToMany
+        중간 테이블에 컬럼을 추가할 수 없고 세밀하게 쿼리를 실행하기 어렵기때문에
+        실무에서 사용하는데 한계가 있다.
+        중간 테이블을 만들고 @ManyToOne, @OneToMany로 매핑해서 사용하자.
+     */
     @ManyToMany
     @JoinTable(name = "category_item",
     joinColumns = @JoinColumn(name = "category_id"),

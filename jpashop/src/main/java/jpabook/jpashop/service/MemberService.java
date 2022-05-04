@@ -9,6 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/*
+    @Transactional : 트랜잭션, 영속성 컨텍스트
+
+    readOnly = true
+    데이터 변경이 없는 읽기 전용 메서드에 사용
+    영속성 컨텍스트를 플러시 하지 않으므로 약간의 성능 향상 (읽기 전용에는 다 적용)
+    데이터베이스 드라이버가 지원하면 DB에서 성능 향상
+ */
+
 @Service
 @Transactional(readOnly = true)  // 읽기 성능 최적화
 @RequiredArgsConstructor         // final 있는 필드만
@@ -24,7 +33,15 @@ public class MemberService {
     }
     */
 
-    //  constructor injection  중간에 바꿀 수 없어서 좋다.
+    /*
+        constructor injection  중간에 바꿀 수 없어서 좋다.
+
+        변경 불가능한 객체 생성 가능
+        생성자가 하나면 @Autowired 생략 가능
+
+        final 키워드를 추가하면 컴파일 시점에 memberRepository를 설정하지 않는 오류를 체크할 수 있다.
+        보통 기본 생성자를 추가할 때 발견
+     */
     private final MemberRepository memberRepository;  //  값 세팅안했을 때 컴파일에러
 
     /*
