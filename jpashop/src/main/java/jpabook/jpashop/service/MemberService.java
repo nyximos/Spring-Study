@@ -70,4 +70,17 @@ public class MemberService {
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
     }
+
+    /*
+        회원 수정
+        Member를 반환해도 되지만, Command와 Query가 같이 있는 꼴이 된다.
+
+        Command와 Query를 분리하라. CQS
+        이 메서드를 호출 했을 때, 내부에서 변경(사이드 이펙트)가 일어나는 메서드인지, 아니면 내부에서 변경이 전혀 일어나지 않는 메서드인지 명확히 분리
+     */
+    @Transactional
+    public void update(Long id, String name) {      // update는 변경성 메서드
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
 }
