@@ -14,9 +14,9 @@ public class ItemRepository {
     private final EntityManager em;
 
     public void save(Item item){
-        if (item.getId() == null) {
+        if (item.getId() == null) {     // 식별자 값이 없으면 새로운 엔티티로 판단해서 영속화 persist하고
             em.persist(item);
-        } else {
+        } else {                        // 식별자가 있으면 병합 merge
             em.merge(item);
         }
     }

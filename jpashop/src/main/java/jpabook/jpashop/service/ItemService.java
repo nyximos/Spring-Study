@@ -30,6 +30,8 @@ public class ItemService {
 
     /*
         영속성 컨텍스트가 자동 변경
+        영속성 컨텍스트에서 엔티티를 다시 조회한 후 데이터를 수정
+        트랜잭션 안에서 엔티티를 다시 조회, 변경할 값 선택 → 트랜잭션 커밋 시점에 변경 감지 DirtyChecking 가 동작해서 데이터베이스에 UPDATE SQL 실행
      */
     @Transactional
     public void updateItem(Long id, String name, int price) {

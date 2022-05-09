@@ -67,6 +67,13 @@ public class ItemController {
 
         itemService.updateItem(form.getId(), form.getName(), form.getPrice());
 
+        /*
+            컨트롤러에서 어설프게 엔티티를 생성하지 말 것
+            트랜잭션이 있는 서비스 계층에 식별자 id와 변경할 데이터를 명확하게 전달 (파라미터, dto)
+            트랜잭션이 있는 서비스 계층에서 영속 상태의 엔티티를 조회하고, 엔티티의 데이터를 직접 변경하자
+            트랜잭션 커밋 시점에 변경 감지가 실행
+         */
+
 //        Book book = new Book();
 //        book.setId(form.getId());
 //        book.setName(form.getName());
