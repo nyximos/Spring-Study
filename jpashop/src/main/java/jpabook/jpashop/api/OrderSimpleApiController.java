@@ -58,7 +58,7 @@ public class OrderSimpleApiController {
     }
 
     /*
-        V2. 엔티티를 조회해서 DTO로 변환 (fetch join 사용x)
+        V2. 엔티티를 조회해서 DTO로 변환 (fetch join 사용 x)
             - 엔티티를 DTO로 변환하는 일반적인 방법
             - 단점 : 지연로딩으로 쿼리 N번 호출
             - 지연 로딩은 영속성 컨텍스트에서 조회하므로, 이미 조회된 경우 쿼리를 생략한다.
