@@ -114,4 +114,18 @@ public class OrderRepository {
                         " join fetch o.delivery d", Order.class)
                 .getResultList();
     }
+
+    /*
+         1. distinct db에 dinstinct 키워드를 날려줌.
+         2. Entity가 중복일 경우에 걸러서 컬렉션에 담아준다.
+     */
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d"+
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class)
+                .getResultList();
+    }
 }
