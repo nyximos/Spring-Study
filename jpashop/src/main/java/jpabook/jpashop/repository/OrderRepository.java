@@ -116,7 +116,8 @@ public class OrderRepository {
     }
 
     /*
-         1. distinct db에 dinstinct 키워드를 날려줌.
+         distinct
+         1. db에 dinstinct 키워드를 날려줌.
          2. Entity가 중복일 경우에 걸러서 컬렉션에 담아준다.
      */
     public List<Order> findAllWithItem() {
