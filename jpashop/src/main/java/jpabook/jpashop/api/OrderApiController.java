@@ -139,7 +139,7 @@ public class OrderApiController {
      *   ToOne 관계는 row수를 증가시키지 않으므로 페이징 쿼리에 영향을 주지 않는다.
      * - 컬렉션은 지연 로딩으로 조회한다.
      * - 지연 로딩 성능 최적화를 위해 hibernate.default_batch_fetch_size, @BatchSize 적용
-     *   컬렉션이나 프록시 객체를 한꺼번에 설정한 size만큼 IN 쿼리로 조회한다.
+     *   컬렉션이나 프록시 객체를 한꺼번에 설정한 size만큼 IN 쿼리로 한꺼번에 조회한다.
      *
      * 장점
      * - 쿼리 호출 수가 1+N -> 1+1 로 최적화한다.
