@@ -96,4 +96,21 @@ public class OrderQueryRepository {     // 핵심 비즈니스 엔티티가 아�
         return orderItems.stream()
                 .collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId));
     }
+
+    /*
+     * Query: 1번
+     * 단점
+     * 쿼리는 한번이지만 조인으로 인해 DB에서 애플리케이션에 전달하는 데이터에 중복 데이터가 추가되므로 상황에 따라 V5 보다 더 느릴 수 도 있다.
+     * 애플리케이션에서 추가 작업이 크다.
+     */
+    public List<OrderFlatDto> findAllByDto_flat() {
+        return em.createQuery(
+                "select new jpabook.jpashop.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +
+                " from Order o" +
+                " join o.member m" +
+                " join o.delivery d" +
+                " join o.orderItems oi" +
+                " join oi.item i", OrderFlatDto.class)
+                .getResultList();
+    }
 }
