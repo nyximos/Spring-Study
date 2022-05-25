@@ -67,9 +67,14 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+//    public Member findOne(Long memberId){
+//        return memberRepository.findOne(memberId);
+//    }
+
     public Member findOne(Long memberId){
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
+
 
     /*
         회원 수정
@@ -80,7 +85,7 @@ public class MemberService {
      */
     @Transactional
     public void update(Long id, String name) {      // update는 변경성 메서드
-        Member member = memberRepository.findOne(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(name);
     }
 }
