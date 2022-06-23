@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class MemberWebController {
+public class WebController {
 
     private final BoardServiceImpl boardService;
 

@@ -4,9 +4,13 @@ import com.example.demo.domain.Board;
 import com.example.demo.domain.Member;
 import com.example.demo.dto.BoardDetailDTO;
 import com.example.demo.dto.BoardListDTO;
+import com.example.demo.dto.MyResponse;
+import com.example.demo.dto.StatusEnum;
 import com.example.demo.repository.BoardRepository;
 import com.example.demo.service.interfaces.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +66,19 @@ public class BoardServiceImpl implements BoardService {
                 .build();
 
         return detailDTO;
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> remove(Long id) {
+
+        boardRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
 }

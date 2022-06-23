@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>home</title>
+    <title>상세보기</title>
+    <script type="text/javascript" src="/jquery-3.6.0.min.js"></script>
+
     <style>
         #menu {
             margin-bottom: 50px;
         }
     </style>
-    <script src="./jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
 <div>
@@ -27,7 +28,7 @@
         <div>글 내용</div>
         <div th:text="${detail.content}"></div>
         <div>
-            <button onclick="remove()">삭제</button>
+            <button id="remove" type="button">삭제</button>
         </div>
     </div>
 </div>
@@ -35,27 +36,59 @@
 </body>
 
 <script th:inline="javascript">
+
     $(document).ready(function () {
+        /*<![CDATA[*/
+
+        var id = /*[[${detail.id}]]*/'';
+        var memberId = /*[[${detail.memberId}]]*/'';
+
+
+        $('#remove').click((event) => {
+            if (localStorage.getItem('id') != memberId) {
+                alert('권한이 없습니다');
+            } else {
+                const path = 'http://localhost:8086/api/board/' + id;
+
+                $.ajax({
+                    url: path,
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                }).done((result) => {
+                    console.log(result);
+                    if (result.header == 'OK') {
+                        alert('삭제 성공')
+                        location.href = "http://localhost:8086"
+                    } else {
+                        alert(result.message);
+                    }
+                });
+            }
+        });
+        /*]]*/
+
+        function login(){
+            if (localStorage.getItem('id') != null) {
+                alert('이미 로그인 되어있는 상태입니다.')
+            } else {
+                location.href="http://localhost:8086/signin";
+            }
+        }
+
+        function logout(){
+            if (localStorage.getItem('id') != null) {
+                localStorage.removeItem('id');
+                alert('로그아웃 완료');
+                location.href="http://localhost:8086/signin";
+            } else {
+                alert('로그인하세요!');
+            }
+        }
 
     });
 
-    function login(){
-        if (localStorage.getItem('id') != null) {
-            alert('이미 로그인 되어있는 상태입니다.')
-        } else {
-            location.href="http://localhost:8086/signin";
-        }
-    }
 
-    function logout(){
-        if (localStorage.getItem('id') != null) {
-            localStorage.removeItem('id');
-            alert('로그아웃 완료');
-            location.href="http://localhost:8086/signin";
-        } else {
-            alert('로그인하세요!');
-        }
-    }
+
 
 </script>
 </html>
