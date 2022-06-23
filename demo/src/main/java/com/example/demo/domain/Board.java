@@ -41,4 +41,7 @@ public class Board {
         this.views++;
     }
 
+    public void view() {
+        this.views += 1;
+    }
 }

@@ -16,4 +16,6 @@ public interface BoardService{
     ResponseEntity<MyResponse> remove(Long id);
 
     ResponseEntity<MyResponse> save(PostDTO postDTO);
+
+    ResponseEntity<MyResponse> view(Long id);
 }

@@ -106,4 +106,20 @@ public class BoardServiceImpl implements BoardService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<MyResponse> view(Long id) {
+
+        Optional<Board> board = boardRepository.findById(id);
+        Board boardEntity = board.orElse(null);
+
+        boardEntity.view();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
 }

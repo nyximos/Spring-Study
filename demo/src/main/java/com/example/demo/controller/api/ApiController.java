@@ -34,4 +34,10 @@ public class ApiController {
         ResponseEntity<MyResponse> responseEntity = boardService.remove(id);
         return responseEntity;
     }
+
+    @PatchMapping("/board/{id}")
+    public ResponseEntity<MyResponse> view(@PathVariable Long id) {
+        ResponseEntity<MyResponse> responseEntity = boardService.view(id);
+        return responseEntity;
+    }
 }
