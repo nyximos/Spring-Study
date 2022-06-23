@@ -2,9 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Board;
 import com.example.demo.domain.Member;
+import com.example.demo.dto.BoardDetailDTO;
 import com.example.demo.dto.BoardListDTO;
 import com.example.demo.repository.BoardRepository;
-import com.example.demo.repository.MemberRepository;
 import com.example.demo.service.interfaces.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,7 +33,6 @@ public class BoardServiceImpl implements BoardService {
             BoardListDTO dto = BoardListDTO.builder()
                     .id(board.getId())
                     .title(board.getTitle())
-                    .content(board.getContent())
                     .createdAt(board.getCreatedAt())
                     .views(board.getViews())
                     .memberId(member.getId())
@@ -43,4 +43,25 @@ public class BoardServiceImpl implements BoardService {
 
         return boardListDTOs;
     }
+
+    @Override
+    public BoardDetailDTO getDetail(Long id) {
+
+        Optional<Board> board = boardRepository.findById(id);
+        Board boardEntity = board.orElse(null);
+
+        Member member = boardEntity.getMember();
+
+        BoardDetailDTO detailDTO = BoardDetailDTO.builder()
+                .id(boardEntity.getId())
+                .title(boardEntity.getTitle())
+                .content(boardEntity.getContent())
+                .createdAt(boardEntity.getCreatedAt())
+                .views(boardEntity.getViews())
+                .memberId(member.getId())
+                .build();
+
+        return detailDTO;
+    }
+
 }

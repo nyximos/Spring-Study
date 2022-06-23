@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <style>
+        #menu {
+            margin-bottom: 50px;
+        }
+    </style>
+    <script src="./jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div>
+    <h2>상세보기</h2>
+    <div id="menu">
+        <button onclick="login()">로그인</button>
+        <button onclick='logout()'>로그아웃</button>
+    </div>
+    <div id="board">
+        <div>글 아이디 : <span th:text="${detail.id}"></span></div>
+        <div>글 제목 : <span th:text="${detail.title}"></span></div>
+        <div>글 생성시각 : <span th:text="${detail.createdAt}"></span></div>
+        <div>작성자 : <span th:text="${detail.memberId}"></span></div>
+        <div>조회수 : <span th:text="${detail.views}"></span></div>
+        <div>글 내용</div>
+        <div th:text="${detail.content}"></div>
+        <div>
+            <button onclick="remove()">삭제</button>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+
+    });
+
+    function login(){
+        if (localStorage.getItem('id') != null) {
+            alert('이미 로그인 되어있는 상태입니다.')
+        } else {
+            location.href="http://localhost:8086/signin";
+        }
+    }
+
+    function logout(){
+        if (localStorage.getItem('id') != null) {
+            localStorage.removeItem('id');
+            alert('로그아웃 완료');
+            location.href="http://localhost:8086/signin";
+        } else {
+            alert('로그인하세요!');
+        }
+    }
+
+</script>
+</html>

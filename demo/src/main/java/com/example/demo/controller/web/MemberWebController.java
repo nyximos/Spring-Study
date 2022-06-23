@@ -1,13 +1,13 @@
 package com.example.demo.controller.web;
 
-import com.example.demo.domain.Board;
+import com.example.demo.dto.BoardDetailDTO;
 import com.example.demo.dto.BoardListDTO;
-import com.example.demo.repository.BoardRepository;
 import com.example.demo.service.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberWebController {
 
-    private final BoardRepository boardRepository;
     private final BoardServiceImpl boardService;
 
     @GetMapping("/")
@@ -35,6 +34,15 @@ public class MemberWebController {
     @GetMapping("/signin")
     public String signin(){
         return "signin";
+    }
+
+    @GetMapping("/board/{id}")
+    public String detail(@PathVariable Long id, Model model){
+
+        BoardDetailDTO detail = boardService.getDetail(id);
+        model.addAttribute("detail", detail);
+
+        return "detail";
     }
 
 }
