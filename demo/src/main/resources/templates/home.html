@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <script src="./jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <div>
+        <h2>Home</h2>
+        <div id="menu">
+            <button onclick="login()">로그인</button>
+            <button onclick='logout()'>로그아웃</button>
+        </div>
+    </div>
+</body>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        if (localStorage.getItem('id') == null) {
+            let menu = $('#menu');
+            let login = document.createElement("p");
+            login.innerHTML("a");
+            menu.prepend(login)
+
+        } else {
+            let menu = $('#menu');
+            let login = document.createElement("p");
+            login.innerHTML("a");
+            menu.prepend(login)
+        }
+    });
+
+    function login(){
+        if (localStorage.getItem('id') != null) {
+            alert('이미 로그인 되어있는 상태입니다.')
+        } else {
+            location.href="http://localhost:8086/signin";
+        }
+    }
+
+    function logout(){
+        if (localStorage.getItem('id') != null) {
+            localStorage.removeItem('id');
+            alert('로그아웃 완료');
+        } else {
+            alert('로그인하세요!');
+        }
+    }
+</script>
+</html>
