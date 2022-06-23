@@ -13,8 +13,8 @@ spring:
 
   datasource:
     url: jdbc:mariadb://localhost:3306/demo
-    username: sa
-    password: 1234
+    username: demo
+    password: demo
 
   jpa:
     hibernate:
