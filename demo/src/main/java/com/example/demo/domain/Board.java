@@ -20,9 +20,6 @@ public class Board {
     @Column(name = "board_id", nullable = false)
     private Long id;
 
-    @Column(name = "board_password", nullable = false)
-    private String password;
-
     @Column(name = "board_title", nullable = false)
     private String title;
 

@@ -3,6 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>home</title>
+    <style>
+        table {
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        table, td, th {
+            border-collapse : collapse;
+            border : 1px solid black;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        #menu {
+            margin-bottom: 50px;
+        }
+    </style>
     <script src="./jquery-3.6.0.min.js"></script>
 
 </head>
@@ -13,22 +32,48 @@
             <button onclick="login()">로그인</button>
             <button onclick='logout()'>로그아웃</button>
         </div>
+        <div id="board">
+
+            <table>
+                <thead class="thead-light">
+                <tr class="text-center">
+                    <th scope="col">글 아이디</th>
+                    <th scope="col">글제목</th>
+                    <th scope="col">작성시간</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">조회수</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr th:each="b : ${board}"
+                    th:onclick="'location.href=\''+ @{/board/{id}(id=${b.id})} + '\''">
+                    <td scope="row" width="10%">
+                        <div th:text="${b.id}"></div>
+                    </td>
+
+                    <td scope="row" width="20%">
+                        <div th:text="${b.title}"></div>
+                    </td>
+                    <td scope="row" width="20%">
+                        <div th:text="${b.createdAt}"></div>
+                    </td>
+                    <td scope="row" width="20%">
+                        <div th:text="${b.memberId}"></div>
+                    </td>
+                    <td scope="row" width="20%">
+                        <div th:text="${b.views}"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
     </div>
 </body>
+
 <script th:inline="javascript">
     $(document).ready(function () {
-        if (localStorage.getItem('id') == null) {
-            let menu = $('#menu');
-            let login = document.createElement("p");
-            login.innerHTML("a");
-            menu.prepend(login)
 
-        } else {
-            let menu = $('#menu');
-            let login = document.createElement("p");
-            login.innerHTML("a");
-            menu.prepend(login)
-        }
     });
 
     function login(){
