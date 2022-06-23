@@ -8,6 +8,9 @@
 </head>
 <body>
 <div>
+    <div onClick="home()">
+        <h3>홈화면으로 이동</h3>
+    </div>
     <h2>로그인</h2>
     <input title="아이디" type="text" name="id" id="id"/>
     <input title="비밀번호" type="password" name="password" id="password"/>
@@ -15,6 +18,11 @@
 </div>
 </body>
 <script th:inline="javascript">
+
+    function home(){
+        location.href="http://localhost:8086";
+    }
+
     $(document).ready(function () {
 
         $('#login').click((event) => {

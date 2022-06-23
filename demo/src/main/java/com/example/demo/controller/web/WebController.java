@@ -36,6 +36,11 @@ public class WebController {
         return "signin";
     }
 
+    @GetMapping("/new")
+    public String newPost(){
+        return "new";
+    }
+
     @GetMapping("/board/{id}")
     public String detail(@PathVariable Long id, Model model){
 

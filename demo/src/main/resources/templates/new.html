@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>로그인</title>
+    <script src="./jquery-3.6.0.min.js"></script>
+    <style>
+        label,
+        textarea {
+            font-size: .8rem;
+            letter-spacing: 1px;
+        }
+        textarea {
+            padding: 10px;
+            max-width: 100%;
+            line-height: 1.5;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 1px 1px 1px #999;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div onclick="home()">
+        <h3 >홈화면으로 이동</h3>
+    </div>
+    <h2>새글 작성</h2>
+    <div>
+    <label for="title">글내용</label>
+    <input title="글제목" type="text" name="title" id="title"/>
+    </div>
+    <div>
+    <label for="content">글내용</label>
+    <textarea id="content" name="content"
+              rows="10" cols="50">
+    </textarea>
+    </div>
+    <button id="save" type="button">저장</button>
+</div>
+</body>
+<script th:inline="javascript">
+
+    function home(){
+        location.href="http://localhost:8086";
+    }
+
+    $(document).ready(function () {
+        function home(){
+            location.href="http://localhost:8086/signin";
+        }
+
+        $('#save').click((event) => {
+            const title = $('#title').val();
+            const content = $('#content').val();
+            const memberId = localStorage.getItem("id");
+            if (title == '') {
+                alert('제목을 입력해주세요');
+                return;
+            }
+            if (content == '') {
+                alert('내용을 입력해주세요');
+                return;
+            }
+
+
+            const path = 'http://localhost:8086/api/board';
+            const json = JSON.stringify({
+                'title': title,
+                'content': content,
+                'memberId': memberId
+            });
+            $.ajax({
+                url: path,
+                type: 'POST',
+                contentType: 'application/json',
+                data: json,
+            }).done((result) => {
+                console.log(result);
+                if (result.header == 'OK') {
+                    alert('등록 성공')
+                    location.href = "http://localhost:8086"
+                } else {
+                    alert(result.message);
+                }
+            });
+        });
+    });
+</script>
+</html>

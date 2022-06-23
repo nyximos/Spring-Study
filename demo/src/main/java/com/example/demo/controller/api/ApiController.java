@@ -2,6 +2,7 @@ package com.example.demo.controller.api;
 
 import com.example.demo.dto.LoginDTO;
 import com.example.demo.dto.MyResponse;
+import com.example.demo.dto.PostDTO;
 import com.example.demo.service.BoardServiceImpl;
 import com.example.demo.service.MemberServiceImpl;
 import com.example.demo.service.interfaces.MemberService;
@@ -23,6 +24,11 @@ public class ApiController {
         return responseEntity;
     }
 
+    @PostMapping("/board")
+    public ResponseEntity<MyResponse> save(@RequestBody PostDTO postDTO) {
+        ResponseEntity<MyResponse> responseEntity = boardService.save(postDTO);
+        return responseEntity;
+    }
     @DeleteMapping("/board/{id}")
     public ResponseEntity<MyResponse> remove(@PathVariable Long id) {
         ResponseEntity<MyResponse> responseEntity = boardService.remove(id);
