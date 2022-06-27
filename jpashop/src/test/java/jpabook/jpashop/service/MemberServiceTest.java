@@ -36,7 +36,7 @@ public class MemberServiceTest {
 
         //then
 //        em.flush();  // 영속성 컨텍스트의 변경 내용을 db에 반영
-        assertEquals(member, memberRepository.findOne(savedId));
+        assertEquals(member, memberRepository.findById(savedId));
     }
 
     @Test(expected = IllegalStateException.class)
