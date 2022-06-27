@@ -27,6 +27,7 @@ class PostControllerTest {
         // expected
         mockMvc.perform(get("/posts"))
                 .andExpect(status().isOk())
+//                .andExpect(content().string("Hello World"))
                 .andExpect(content().string("Hello World"))
                 .andDo(print());
     }
@@ -58,9 +59,9 @@ class PostControllerTest {
         // 글 제목
         // 글 내용
         // 사용자
-        // id
-        // name
-        // level
+            // id
+            // name
+            // level
 
         // expect
         mockMvc.perform(post("/posts")   // appplication/json 형태로 보냄 (content-type : http header 값)
@@ -68,7 +69,23 @@ class PostControllerTest {
                         .content("{\"title\": \"제목입니다.\", \"content\": \"내용입니다\"}") // ModelAttribute로 받으면 값이 안들어가짐
         )
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello World"))
+                .andExpect(content().string("{}"))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("/post 요청시 title 값은 필수다.")
+    void postTest2() throws Exception {
+
+        // expect
+        mockMvc.perform(post("/posts")   // appplication/json 형태로 보냄 (content-type : http header 값)
+                .contentType(MediaType.APPLICATION_JSON)
+                // {"title":""}
+                // {"title":null}
+                .content("{\"title\": null, \"content\": \"내용입니다\"}") // ModelAttribute로 받으면 값이 안들어가짐
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
                 .andDo(print());
     }
     
