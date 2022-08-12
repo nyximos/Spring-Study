@@ -19,5 +19,10 @@ public class WebController {
         return "hello";
     }
 
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
+    }
+
 
 }
