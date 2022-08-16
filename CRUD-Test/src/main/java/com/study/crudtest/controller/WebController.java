@@ -24,5 +24,8 @@ public class WebController {
         return "signup";
     }
 
-
+    @GetMapping("/signin")
+    public String signin(){
+        return "signin";
+    }
 }

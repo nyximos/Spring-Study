@@ -1,5 +1,6 @@
 package com.study.crudtest.controller;
 
+import com.study.crudtest.dto.LoginDTO;
 import com.study.crudtest.dto.SignUpFormDTO;
 import com.study.crudtest.service.interfaces.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,12 @@ public class ApiController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity userSignup(@RequestBody SignUpFormDTO formDTO) {
+    public ResponseEntity signin(@RequestBody SignUpFormDTO formDTO) {
         return memberService.signup(formDTO);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody LoginDTO loginDTO){
+        return memberService.login(loginDTO);
     }
 }

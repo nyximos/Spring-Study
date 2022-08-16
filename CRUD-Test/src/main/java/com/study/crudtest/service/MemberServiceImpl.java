@@ -2,6 +2,7 @@ package com.study.crudtest.service;
 
 import com.study.crudtest.domain.Member;
 import com.study.crudtest.domain.MemberRole;
+import com.study.crudtest.dto.LoginDTO;
 import com.study.crudtest.dto.SignUpFormDTO;
 import com.study.crudtest.repository.MemberRepository;
 import com.study.crudtest.service.interfaces.MemberService;
@@ -38,5 +39,23 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return new ResponseEntity("fail", HttpStatus.OK);
         }
+    }
+
+    @Override
+    public ResponseEntity login(LoginDTO loginDTO) {
+
+        Optional<Member> member = memberRepository.findById(loginDTO.getId());
+        Member memberEntity = member.orElse(null);
+
+        if (member==null){
+            return new ResponseEntity("해당 아이디를 가진 회원이 존재하지 않습니다.", HttpStatus.OK);
+        }
+
+        if (memberEntity.getPassword().equals(loginDTO.getPassword())){
+            return new ResponseEntity("success", HttpStatus.OK);
+        } else {
+            return new ResponseEntity("비밀번호가 일치하지 않습니다.", HttpStatus.OK);
+        }
+
     }
 }

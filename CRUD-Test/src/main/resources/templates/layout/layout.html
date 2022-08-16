@@ -24,7 +24,12 @@
 
 <script th:inline="javascript">
     function logout(){
-        alert('로그아웃 완료');
+        if (localStorage.getItem('id') != null) {
+            localStorage.removeItem('id');
+            alert('로그아웃 완료');
+        } else {
+            alert('로그인하세요!');
+        }
     }
 </script>
 </body>
