@@ -1,3 +1,9 @@
+/*body {*/
+/*    margin: 0 auto;*/
+/*    width: 300px;*/
+/*}*/
+
+
 li {
     list-style: none;
 }
@@ -16,4 +22,33 @@ a:link {
 
 .btn-submit {
     margin-top: 10px;
+}
+
+label,
+textarea {
+    font-size: .8rem;
+    letter-spacing: 1px;
+}
+textarea {
+    padding: 10px;
+    max-width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.content-box {
+    margin-top: 20px;
+}
+
+#title {
+    width: 380px;
+    height: 20px;
+
 }

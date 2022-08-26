@@ -28,4 +28,10 @@ public class WebController {
     public String signin(){
         return "signin";
     }
+
+    @GetMapping("/new")
+    public String newPost(){
+        return "new";
+    }
+
 }

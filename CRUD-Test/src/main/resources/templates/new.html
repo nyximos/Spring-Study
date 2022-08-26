@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head th:replace="~{fragment/header::headerFragment(~{::title})}">
+    <title th:text="등록"></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div>
+        <h2>새 글 작성</h2>
+        <div>
+            <label for="title">제목</label>
+            <input title="글제목" type="text" name="title" id="title"/>
+        </div>
+        <div class="content-box">
+            <label>내용</label>
+            <textarea class="content" name="content"
+                      rows="10" cols="50"></textarea>
+        </div>
+        <button id="save" type="button">저장</button>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript">
+
+        $(function () {
+            $('#save').click((event) => {
+                const title = $('#title').val();
+                const content = $('.content').val();
+                const memberId = localStorage.getItem("id");
+                if (title == '') {
+                    alert('제목을 입력해주세요');
+                    return;
+                }
+                if (content == '') {
+                    alert('내용을 입력해주세요');
+                    return;
+                }
+
+                const path = 'http://localhost:8086/api/posts';
+                const json = JSON.stringify({
+                    'title': title,
+                    'content': content,
+                    'memberId': memberId
+                });
+                $.ajax({
+                    url: path,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: json,
+                }).done((response) => {
+                    console.log(response);
+                    if (response == 'success') {
+                        alert('등록 성공')
+                        location.href = "http://localhost:8086"
+                    } else {
+                        alert(response);
+                    }
+                });
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>
