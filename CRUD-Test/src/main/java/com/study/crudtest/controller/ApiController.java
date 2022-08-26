@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -28,12 +29,12 @@ public class ApiController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity login(@RequestBody LoginDTO loginDTO) {
         return memberService.login(loginDTO);
     }
 
     @PostMapping("/posts")
-    public ResponseEntity save(@RequestBody PostFormDTO formDTO){
+    public ResponseEntity save(@RequestBody PostFormDTO formDTO) {
         ResponseEntity responseEntity = boardService.save(formDTO);
         return responseEntity;
     }

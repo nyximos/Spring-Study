@@ -50,5 +50,19 @@ label {
 #title {
     width: 380px;
     height: 20px;
+}
 
+table {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+table, td, th {
+    border-collapse : collapse;
+    border : 1px solid black;
+}
+
+td {
+    text-align: center;
 }

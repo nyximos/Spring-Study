@@ -2,6 +2,7 @@ package com.study.crudtest.service;
 
 import com.study.crudtest.domain.Board;
 import com.study.crudtest.domain.Member;
+import com.study.crudtest.dto.ListDTO;
 import com.study.crudtest.dto.PostFormDTO;
 import com.study.crudtest.exception.MemberNotExistException;
 import com.study.crudtest.repository.BoardRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +26,31 @@ public class BoardServiceImpl implements BoardService {
 
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
+
+    @Override
+    public List<ListDTO> getAll() {
+
+        List<Board> posts = boardRepository.findAll();
+        List<ListDTO> list = new ArrayList<>();
+
+
+        for (Board post : posts) {
+            Member member = post.getMember();
+
+            ListDTO dto = ListDTO.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .createdAt(post.getCreatedAt())
+                    .userViews(post.getUserViews())
+                    .adminViews(post.getAdminViews())
+                    .memberName(member.getName())
+                    .build();
+
+            list.add(dto);
+        }
+
+        return list;
+    }
 
     @Override
     public ResponseEntity save(PostFormDTO formDTO) {

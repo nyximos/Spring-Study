@@ -9,7 +9,42 @@
 <body >
 
 <th:block layout:fragment="content">
-  <h1>content</h1>
+  <h1>리스트</h1>
+  <table>
+    <thead class="thead-light">
+      <tr class="text-center">
+        <th scope="col">글번호</th>
+        <th scope="col">글제목</th>
+        <th scope="col">작성시간</th>
+        <th scope="col">일반회원 조회수</th>
+        <th scope="col">운영자 조회수</th>
+        <th scope="col">작성자</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr th:each="p : ${posts}"  th:id="${p.id}" th:onclick="view(this.getAttribute('id'))">
+        <!--                    th:onclick="'location.href=\''+ @{/board/{id}(id=${b.id})} + '\''"-->
+        <td scope="row" width="10%">
+          <div th:text="${p.id}"></div>
+        </td>
+        <td scope="row" width="20%">
+          <div th:text="${p.title}"></div>
+        </td>
+        <td scope="row" width="20%">
+          <div th:text="${p.createdAt}"></div>
+        </td>
+        <td scope="row" width="10%">
+          <div th:text="${p.userViews}"></div>
+        </td>
+        <td scope="row" width="10%">
+          <div th:text="${p.adminViews}"></div>
+        </td>
+        <td scope="row" width="20%">
+          <div th:text="${p.memberName}"></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </th:block>
 
 <th:block layout:fragment="script">
