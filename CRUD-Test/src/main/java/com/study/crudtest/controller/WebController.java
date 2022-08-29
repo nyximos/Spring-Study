@@ -1,11 +1,14 @@
 package com.study.crudtest.controller;
 
+import com.study.crudtest.dto.DetailDTO;
 import com.study.crudtest.dto.ListDTO;
-import com.study.crudtest.service.BoardServiceImpl;
+import com.study.crudtest.service.interfaces.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -13,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebController {
 
-    private final BoardServiceImpl boardService;
+    private final BoardService boardService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -42,6 +45,14 @@ public class WebController {
     @GetMapping("/new")
     public String newPost(){
         return "new";
+    }
+
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model, @CookieValue("id") String memberId){
+        DetailDTO post = boardService.getDetail(id, memberId);
+        model.addAttribute("post", post);
+
+        return "detail";
     }
 
 }

@@ -3,7 +3,6 @@
 /*    width: 300px;*/
 /*}*/
 
-
 li {
     list-style: none;
 }
@@ -65,4 +64,13 @@ table, td, th {
 
 td {
     text-align: center;
+}
+
+#content-box {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+#line {
+    white-space: pre-line;
 }

@@ -22,8 +22,9 @@
       </tr>
     </thead>
     <tbody >
-      <tr th:each="p : ${posts}"  th:id="${p.id}" th:onclick="view(this.getAttribute('id'))">
-        <!--                    th:onclick="'location.href=\''+ @{/board/{id}(id=${b.id})} + '\''"-->
+    <tr th:each="p : ${posts}"  th:id="${p.id}" th:onclick="'location.href=\''+ @{/{id}(id=${p.id})} + '\''">
+<!--      <tr th:each="p : ${posts}"  th:id="${p.id}" th:onclick="view(this.getAttribute('id'))">-->
+<!--                            th:onclick="'location.href=\''+ @{/board/{id}(id=${b.id})} + '\''"-->
         <td scope="row" width="10%">
           <div th:text="${p.id}"></div>
         </td>
@@ -50,6 +51,11 @@
 <th:block layout:fragment="script">
   <script type="text/javascript">
     console.log('Home')
+
+    function view(id) {
+          location.href = "http://localhost:8086/"+id
+    }
+
   </script>
 </th:block>
 </body>

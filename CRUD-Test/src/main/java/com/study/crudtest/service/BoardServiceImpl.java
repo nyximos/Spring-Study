@@ -2,6 +2,8 @@ package com.study.crudtest.service;
 
 import com.study.crudtest.domain.Board;
 import com.study.crudtest.domain.Member;
+import com.study.crudtest.domain.MemberRole;
+import com.study.crudtest.dto.DetailDTO;
 import com.study.crudtest.dto.ListDTO;
 import com.study.crudtest.dto.PostFormDTO;
 import com.study.crudtest.exception.MemberNotExistException;
@@ -102,4 +104,36 @@ public class BoardServiceImpl implements BoardService {
         return new ResponseEntity("success", HttpStatus.OK);
 
     }
+
+    @Override
+    public DetailDTO getDetail(Long id, String memberId) {
+
+        Optional<Board> board = boardRepository.findById(id);
+        Board boardEntity = board.orElse(null);
+
+        Member member = boardEntity.getMember();
+
+        if(!memberId.equals(member.getId())){
+            if(member.getRole().equals(MemberRole.ADMIN)){
+                boardEntity.countAdmin();
+            }else {
+                boardEntity.countUser();
+            }
+        }
+
+        DetailDTO detailDTO = DetailDTO.builder()
+                .id(boardEntity.getId())
+                .title(boardEntity.getTitle())
+                .content(boardEntity.getContent())
+                .createdAt(boardEntity.getCreatedAt())
+                .updatedAt(boardEntity.getUpdatedAt())
+                .userViews(boardEntity.getUserViews())
+                .adminViews(boardEntity.getAdminViews())
+                .memberName(member.getName())
+                .build();
+
+        return detailDTO;
+    }
+
+
 }

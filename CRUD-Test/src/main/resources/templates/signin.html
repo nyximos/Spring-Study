@@ -56,6 +56,7 @@
                     }).done((response) => {
                         if (response == 'success') {
                             alert('로그인 성공')
+                            document.cookie = `id=${id}`
                             localStorage.setItem('id', id);
                             location.href = "http://localhost:8086"
                         } else {

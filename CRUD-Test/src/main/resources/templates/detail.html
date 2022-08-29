@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head th:replace="~{fragment/header::headerFragment(~{::title})}">
+    <title th:text="상세"></title>
 </head>
-<body>
 
+<body >
+<th:block layout:fragment="content">
+    <h1 th:text="${post.title}"></h1>
+    <div id="content-box">
+        <div>글번호 : <span th:text="${post.id}"></span></div>
+        <div>등록 일시 : <span th:text="${post.createdAt}"></span></div>
+        <div>수정 일시 : <span th:text="${post.updatedAt}"></span></div>
+        <div>작성자 : <span th:text="${post.memberName}"></span></div>
+        <div>일반회원 조회수 : <span th:text="${post.userViews}"></span></div>
+        <div>운영자 조회수 : <span th:text="${post.adminViews}"></span></div>
+        <div>조회수 : <span th:text="${post.likes}"></span></div>
+        <div>글 내용</div>
+        <div id="line" th:text="${post.content}"></div>
+    </div>
+    <div>
+        <button id="update" type="button">수정</button>
+        <button id="remove" type="button">삭제</button>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript">
+        console.log('Home')
+    </script>
+</th:block>
 </body>
 </html>
