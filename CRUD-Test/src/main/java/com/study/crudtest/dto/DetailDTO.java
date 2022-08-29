@@ -20,6 +20,7 @@ public class DetailDTO {
     private LocalDateTime updatedAt;
     private int userViews;
     private int adminViews;
+    private String memberId;
     private String memberName;
     private int likes;
 }

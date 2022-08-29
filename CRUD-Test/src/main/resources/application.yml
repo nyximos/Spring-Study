@@ -13,3 +13,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hiberante:
+        format_sql: true
+
+logging:
+  level:
+    org:
+      hiberante.SQL: debug

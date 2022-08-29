@@ -29,6 +29,7 @@ dependencies {
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1' // 쿼리 파라미터를 로그로 남기는 외부 라이브러리
 }
 
 tasks.named('test') {

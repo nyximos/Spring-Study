@@ -109,7 +109,7 @@ public class BoardServiceImpl implements BoardService {
     public DetailDTO getDetail(Long id, String memberId) {
 
         Optional<Board> board = boardRepository.findById(id);
-        Board boardEntity = board.orElse(null);
+        Board boardEntity = board.orElseGet(null);
 
         Member member = boardEntity.getMember();
 
@@ -129,9 +129,10 @@ public class BoardServiceImpl implements BoardService {
                 .updatedAt(boardEntity.getUpdatedAt())
                 .userViews(boardEntity.getUserViews())
                 .adminViews(boardEntity.getAdminViews())
+                .memberId(member.getId())
                 .memberName(member.getName())
                 .build();
-
+        System.out.println("detailDTO.getMemberId() = " + detailDTO.getMemberId());
         return detailDTO;
     }
 

@@ -28,8 +28,42 @@
 </th:block>
 
 <th:block layout:fragment="script">
-    <script type="text/javascript">
-        console.log('Home')
+    <script th:inline="javascript">
+
+        $(document).ready(function () {
+            /*<![CDATA[*/
+
+            var id = /*[[${post.id}]]*/'';
+            var memberId = /*[[${post.memberId}]]*/'';
+
+
+            $('#remove').click((event) => {
+                if (localStorage.getItem('id') != memberId) {
+                    console.log(id);
+                    console.log(memberId);
+                    console.log(localStorage.getItem('id'));
+                    alert('권한이 없습니다');
+                } else {
+                    const path = 'http://localhost:8086/api/posts/' + id;
+
+                    $.ajax({
+                        url: path,
+                        type: 'DELETE',
+                        contentType: 'application/json',
+                    }).done((result) => {
+                        console.log(result);
+                        if (response == 'success') {
+                            alert('삭제 성공')
+                            location.href = "http://localhost:8086"
+                        } else {
+                            alert(result);
+                        }
+                    });
+                }
+            })
+        });
+
+        /*]]*/
     </script>
 </th:block>
 </body>
