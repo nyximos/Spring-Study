@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head th:replace="~{fragment/header::headerFragment(~{::title})}">
+    <title th:text="수정"></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div>
+        <h2>글 수정</h2>
+        <div>
+            <label for="title">제목</label>
+            <input title="글제목" type="text" name="title" id="title" th:value="${post.title}"/>
+        </div>
+        <div class="content-box">
+            <label>내용</label>
+            <textarea id="txtArea" class="content" name="content"
+                      rows="10" cols="50" th:text="${post.content}"></textarea>
+        </div>
+        <button id="save" type="button">저장</button>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            /*<![CDATA[*/
+            var id = "[[${post.id}]]";
+            console.log(id)
+
+            $('#save').click((event) => {
+                const title = $('#title').val();
+                const content = $('.content').val();
+                console.log(title);
+                console.log(content);
+                if (title == '') {
+                    alert('제목을 입력해주세요');
+                    return;
+                }
+                if (content == '') {
+                    alert('내용을 입력해주세요');
+                    return;
+                }
+
+                const path = 'http://localhost:8086/api/posts/'+ id;
+                const json = JSON.stringify({
+                    'title': title,
+                    'content': content,
+                });
+                $.ajax({
+                    url: path,
+                    type: 'PATCH',
+                    contentType: 'application/json',
+                    data: json,
+                }).done((response) => {
+                    console.log(response);
+                    if (response == 'success') {
+                        alert('등록 성공')
+                        location.href = "http://localhost:8086"
+                    } else {
+                        alert(response);
+                    }
+                });
+            });
+        });
+        /*]]*/
+
+
+    </script>
+</th:block>
+</body>
+</html>

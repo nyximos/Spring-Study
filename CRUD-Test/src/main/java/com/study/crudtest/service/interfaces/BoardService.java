@@ -1,8 +1,6 @@
 package com.study.crudtest.service.interfaces;
 
-import com.study.crudtest.dto.DetailDTO;
-import com.study.crudtest.dto.ListDTO;
-import com.study.crudtest.dto.PostFormDTO;
+import com.study.crudtest.dto.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -17,4 +15,7 @@ public interface BoardService {
 
     DetailDTO getDetail(Long id, String memberId);
 
+    UpdateDTO getUpdateDTO(Long id);
+
+    ResponseEntity update(Long id, UpdateFormDTO updateFormDTO);
 }

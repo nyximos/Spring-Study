@@ -3,10 +3,7 @@ package com.study.crudtest.service;
 import com.study.crudtest.domain.Board;
 import com.study.crudtest.domain.Member;
 import com.study.crudtest.domain.MemberRole;
-import com.study.crudtest.dto.DetailDTO;
-import com.study.crudtest.dto.ListDTO;
-import com.study.crudtest.dto.PostFormDTO;
-import com.study.crudtest.exception.MemberNotExistException;
+import com.study.crudtest.dto.*;
 import com.study.crudtest.repository.BoardRepository;
 import com.study.crudtest.repository.MemberRepository;
 import com.study.crudtest.service.interfaces.BoardService;
@@ -134,6 +131,31 @@ public class BoardServiceImpl implements BoardService {
                 .build();
         System.out.println("detailDTO.getMemberId() = " + detailDTO.getMemberId());
         return detailDTO;
+    }
+
+    @Override
+    public UpdateDTO getUpdateDTO(Long id) {
+        Optional<Board> board = boardRepository.findById(id);
+        Board boardEntity = board.orElseGet(null);
+
+        UpdateDTO updateDTO = UpdateDTO.builder()
+                .id(boardEntity.getId())
+                .title(boardEntity.getTitle())
+                .content(boardEntity.getContent())
+                .build();
+
+        return updateDTO;
+    }
+
+    @Override
+    public ResponseEntity update(Long id, UpdateFormDTO updateFormDTO) {
+
+        Optional<Board> board = boardRepository.findById(id);
+        Board boardEntity = board.orElseGet(null);
+
+        boardEntity.update(updateFormDTO);
+
+        return new ResponseEntity("success", HttpStatus.OK);
     }
 
 

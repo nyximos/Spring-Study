@@ -3,6 +3,7 @@ package com.study.crudtest.controller;
 import com.study.crudtest.dto.LoginDTO;
 import com.study.crudtest.dto.PostFormDTO;
 import com.study.crudtest.dto.SignUpFormDTO;
+import com.study.crudtest.dto.UpdateFormDTO;
 import com.study.crudtest.service.interfaces.BoardService;
 import com.study.crudtest.service.interfaces.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,12 @@ public class ApiController {
     @DeleteMapping("/posts/{id}")
     public ResponseEntity remove(@PathVariable Long id) {
         ResponseEntity responseEntity = boardService.remove(id);
+        return responseEntity;
+    }
+
+    @PatchMapping("/posts/{id}")
+    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateFormDTO updateFormDTO) {
+        ResponseEntity responseEntity = boardService.update(id, updateFormDTO);
         return responseEntity;
     }
 }

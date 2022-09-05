@@ -2,6 +2,7 @@ package com.study.crudtest.controller;
 
 import com.study.crudtest.dto.DetailDTO;
 import com.study.crudtest.dto.ListDTO;
+import com.study.crudtest.dto.UpdateDTO;
 import com.study.crudtest.service.interfaces.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,13 @@ public class WebController {
         model.addAttribute("post", post);
 
         return "detail";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable Long id, Model model) {
+        UpdateDTO post = boardService.getUpdateDTO(id);
+        model.addAttribute("post", post);
+        return "update";
     }
 
 }
