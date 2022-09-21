@@ -73,6 +73,7 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+    /*
     @Test
     @DisplayName("/post 요청시 title 값은 필수다.")
     void postTest2() throws Exception {
@@ -88,6 +89,24 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
                 .andDo(print());
     }
-    
+     */
+
+    @Test
+    @DisplayName("/post 요청시 title 값은 필수다.")
+    void postTest2() throws Exception {
+
+        // expect
+        mockMvc.perform(post("/posts")   // appplication/json 형태로 보냄 (content-type : http header 값)
+                .contentType(MediaType.APPLICATION_JSON)
+                // {"title":""}
+                // {"title":null}
+                .content("{\"title\": null, \"content\": \"내용입니다\"}") // ModelAttribute로 받으면 값이 안들어가짐
+        )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.message").value("잘못된 요청입니다."))
+                .andExpect(jsonPath("$.validation.title").value("타이틀을 입력해주세요."))
+                .andDo(print());
+    }
 
 }
